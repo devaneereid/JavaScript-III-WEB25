@@ -132,3 +132,59 @@ CharacterStats.prototype.takeDamage = function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+  
+  const villian = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 1,
+      height: 3,
+    },
+    healthPoints: 13,
+    name: 'Maleficient',
+    team: 'Her Own',
+    weapons: [
+      'Magic',
+      'Shield',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const hero = new Humanoid({
+    createdAt: new Date(),
+    dimensions: {
+      length: 3,
+      width: 1,
+      height: 2,
+    },
+    healthPoints: 16,
+    name: 'Jack',
+    team: 'Mage Guild',
+    weapons: [
+      'Sword',
+      'Shield',
+    ],
+    language: 'All',
+  });
+
+
+  function villianObject(villAttrs){
+    this.createdAt = villAttrs.createdAt;
+    this.name = villAttrs.name;
+    this.dimensions = villAttrs.dimensions;
+  }
+  villianObject.prototype.destroyAll = function(){
+    return `${this.name} is trying to ruin the game.`;
+  }
+console.log(villian.destroyAll);
+
+
+  function heroObject(heroAttrs){
+    villianObject.call(this, heroAttrs);
+    this.healthPoints = heroAttrs.healthPoints;
+  }
+  heroObject.prototype = Object.create(villianObject.prototype);
+  heroObject.prototype.takeDamage = function(){
+    return `${this.name} took damage.`;
+  };
+  console.log(hero.name);
